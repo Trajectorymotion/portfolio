@@ -5,42 +5,42 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Instagram, Youtube, Mail, Star, Copy, Check, ExternalLink, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-function RealLiquidButton({ 
-    children, 
-    onClick, 
-    href, 
+function RealLiquidButton({
+    children,
+    onClick,
+    href,
     className,
     variant = "glass",
-    rounded = "rounded-3xl" 
-}: { 
-    children: React.ReactNode, 
-    onClick?: () => void, 
+    rounded = "rounded-3xl"
+}: {
+    children: React.ReactNode,
+    onClick?: () => void,
     href?: string,
     className?: string,
     variant?: "glass" | "solid",
     rounded?: string
 }) {
     const Component = href ? motion.a : motion.button;
-    
+
     // Hyperrealistic Real Liquid Styles
     const baseStyles = `relative group flex items-center justify-between px-7 py-4.5 ${rounded} transition-all duration-700 overflow-hidden`;
-    
+
     // Variant-specific base layers - Enhanced for Light Mode
-    const variantStyles = variant === "solid" 
-        ? "bg-foreground text-background shadow-[0_20px_40px_rgba(0,0,0,0.3)]" 
+    const variantStyles = variant === "solid"
+        ? "bg-foreground text-background shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
         : "bg-white/40 dark:bg-white/[0.03] border border-foreground/[0.08] dark:border-white/[0.08] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-none";
 
     const content = (
         <>
             {/* Glass Surface Refraction Layer */}
             <div className="absolute inset-0 backdrop-blur-[24px] pointer-events-none" />
-            
+
             {/* Specular Gradient Layer (Light Mode Focus) */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent dark:from-transparent dark:to-transparent pointer-events-none opacity-50 dark:opacity-0" />
-            
+
             {/* Top Gloss Highlight (Curved Surface) */}
             <div className="absolute top-0 left-0 right-0 h-[60%] bg-gradient-to-b from-white/[0.3] dark:from-white/[0.08] to-transparent pointer-events-none z-10" />
-            
+
             {/* Dynamic Liquid Shine Flare */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-20">
                 <div className="absolute top-[-50%] -left-[100%] w-[150%] h-[200%] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0%,transparent_60%)] animate-[shimmer_4s_infinite]" />
@@ -51,22 +51,22 @@ function RealLiquidButton({
 
             {/* Inner Liquid Depth Shadow */}
             <div className="absolute inset-0 shadow-[inset_0_2px_12px_rgba(0,0,0,0.04)] dark:shadow-[inset_0_2px_10px_rgba(255,255,255,0.02)] pointer-events-none" />
-            
+
             {/* Liquid Edge Glow - Sharper and more curved */}
             <div className={`absolute inset-px ${rounded} border border-white/[0.3] dark:border-white/[0.08] pointer-events-none z-30 shadow-[inset_0_0_10px_rgba(255,255,255,0.2)] dark:shadow-none`} />
-            
+
             <div className="relative z-40 flex items-center gap-4 w-full justify-between">
                 {children}
             </div>
-            
+
             {/* Bottom Surface Reflection */}
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] h-[1px] bg-gradient-to-r from-transparent via-foreground/10 dark:via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-[0.5px] z-30" />
         </>
     );
 
     const motionProps = {
-        whileHover: { 
-            scale: 1.025, 
+        whileHover: {
+            scale: 1.025,
             y: -3,
             boxShadow: "0 25px 50px -12px rgba(0,0,0,0.08), inset 0 0 20px rgba(255,255,255,0.1)"
         },
@@ -103,9 +103,9 @@ function RealLiquidButton({
 export default function SocialsPage() {
     const [copied, setCopied] = useState(false);
 
-    const copyInstagram = async (e: React.MouseEvent) => {
+    const copyInstagram = async () => {
         const textToCopy = "trajectory.motion";
-        
+
         try {
             if (navigator.clipboard && window.isSecureContext) {
                 await navigator.clipboard.writeText(textToCopy);
@@ -146,11 +146,11 @@ export default function SocialsPage() {
                 >
                     {/* Animated Edge Light */}
                     <div className="absolute inset-[-500%] animate-[border-rotate_8s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_20%,var(--foreground)_50%,transparent_80%)] opacity-30 blur-2xl transition-opacity duration-1000 group-hover/card:opacity-50" />
-                    
+
                     <div className="glass-premium p-10 sm:p-14 rounded-[3.5rem] relative overflow-hidden flex flex-col items-center backdrop-blur-[40px]">
                         {/* Profile Section - Volumetric Bubble */}
                         <div className="mb-10 relative group/avatar">
-                            <motion.div 
+                            <motion.div
                                 initial={{ scale: 0.8, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
                                 transition={{ type: "spring", stiffness: 100, delay: 0.3 }}
@@ -203,7 +203,7 @@ export default function SocialsPage() {
                             </RealLiquidButton>
 
                             {/* Instagram Copy - Liquid Glass */}
-                            <RealLiquidButton onClick={copyInstagram}>
+                            <RealLiquidButton onClick={() => copyInstagram()}>
                                 <div className="flex items-center gap-4">
                                     <div className="w-10 h-10 rounded-3xl bg-foreground/[0.03] dark:bg-white/[0.03] flex items-center justify-center border border-foreground/[0.05] dark:border-white/[0.05] group-hover:scale-105 transition-transform duration-500 shadow-inner relative overflow-hidden flex-shrink-0">
                                         <div className="relative z-10">
