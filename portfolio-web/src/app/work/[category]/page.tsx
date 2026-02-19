@@ -1,9 +1,8 @@
 import { notFound } from "next/navigation";
-import { portfolioCategories, PortfolioItem } from "@/data/portfolio";
+import { PortfolioItem } from "@/data/portfolio";
 import { ShowcaseSection } from "@/components/ShowcaseSection";
 import { getPlaylistData } from "@/lib/youtube";
-
-// Removed local fetchPlaylistData as we use the lib directly now
+import { getContent } from "@/lib/actions";
 
 export default async function CategoryPage({
     params,
@@ -11,37 +10,44 @@ export default async function CategoryPage({
     params: Promise<{ category: string }>
 }) {
     const { category: categoryId } = await params;
-    const categoryData = portfolioCategories.find(c => c.id === categoryId);
+    const content = await getContent();
+
+    // Find category in content.json
+    const categoryData = content?.categories?.find((c: any) => c.id === categoryId);
 
     if (!categoryData) {
         notFound();
     }
 
-    // Fetch dynamic data for both short-form and long-form
-    let items = categoryData.items;
+    // Manual items from dashboard
+    let items: PortfolioItem[] = categoryData.videos || [];
     let secondaryItems: PortfolioItem[] = [];
 
+    // Also fetch dynamic playlist data if applicable for legacy categories
     if (categoryId === 'short-form' || categoryId === 'long-form' || categoryId === 'saas') {
-        const { SHORT_FORM_PLAYLIST_ID, LONG_FORM_PLAYLIST_ID, SAAS_PLAYLIST_ID, SAAS_916_PLAYLIST_ID } = await import("@/data/portfolio");
+        const {
+            SHORT_FORM_PLAYLIST_ID,
+            LONG_FORM_PLAYLIST_ID,
+            SAAS_PLAYLIST_ID,
+            SAAS_916_PLAYLIST_ID
+        } = await import("@/data/portfolio");
 
         let primaryPlaylistId = '';
         if (categoryId === 'short-form') primaryPlaylistId = SHORT_FORM_PLAYLIST_ID;
         else if (categoryId === 'long-form') primaryPlaylistId = LONG_FORM_PLAYLIST_ID;
         else if (categoryId === 'saas') primaryPlaylistId = SAAS_PLAYLIST_ID;
 
-        console.log(`[CategoryPage] Fetching dynamic playlist data for ${categoryId}...`);
-
         if (categoryId === 'saas') {
-            // Parallel fetch for SaaS (Landscape + Portrait)
             const [primary, secondary] = await Promise.all([
                 getPlaylistData(primaryPlaylistId),
                 getPlaylistData(SAAS_916_PLAYLIST_ID)
             ]);
-            if (primary.length > 0) items = primary;
-            if (secondary.length > 0) secondaryItems = secondary;
+            // Merge manual first, then playlist
+            items = [...items, ...(primary.filter(p => !items.find(i => i.id === p.id)))];
+            secondaryItems = secondary;
         } else {
             const dynamicItems = await getPlaylistData(primaryPlaylistId);
-            if (dynamicItems.length > 0) items = dynamicItems;
+            items = [...items, ...(dynamicItems.filter(p => !items.find(i => i.id === p.id)))];
         }
     }
 

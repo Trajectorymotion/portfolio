@@ -3,11 +3,17 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { Star } from "lucide-react"
 import { useState } from "react"
+import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
+    const pathname = usePathname()
+
+    const isAdmin = pathname?.startsWith('/admin')
+
+    if (isAdmin) return null;
 
     const menuItems = [
         { label: "Work", href: "#work" },

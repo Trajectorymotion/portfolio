@@ -1,47 +1,60 @@
 import { NextResponse } from 'next/server';
+import { getContent } from '@/lib/actions';
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const type = searchParams.get('type');
-
-    let url = '';
-
-    switch (type) {
-        case 'testimonials':
-            url = process.env.TESTIMONIALS_CSV_URL || '';
-            break;
-        case 'faqs':
-            url = process.env.FAQ_CSV_URL || '';
-            break;
-        case 'stats':
-            url = process.env.STATS_CSV_URL || '';
-            break;
-        default:
-            return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
-    }
-
-    if (!url) {
-        return NextResponse.json({ error: 'URL not configured' }, { status: 500 });
-    }
+    const format = searchParams.get('format') || 'csv';
 
     try {
-        const response = await fetch(url, {
-            next: { revalidate: 3600 } // Cache for 1 hour
-        });
-
-        if (!response.ok) {
-            throw new Error(`Failed to fetch from Google Sheets: ${response.statusText}`);
+        const content = await getContent();
+        if (!content) {
+            return NextResponse.json({ error: 'Content not found' }, { status: 404 });
         }
 
-        const data = await response.text();
-        return new NextResponse(data, {
+        let data: any = "";
+        let contentType = 'application/json';
+
+        if (format === 'csv') {
+            contentType = 'text/csv';
+            switch (type) {
+                case 'testimonials':
+                    data = "Name,Review,Image,Category\n" +
+                        content.testimonials.map((t: any) =>
+                            `"${t.name}","${t.review.replace(/"/g, '""')}","${t.image}","Client"`
+                        ).join("\n");
+                    break;
+                case 'faqs':
+                    data = "Question,Answer\n" +
+                        content.faqs.map((f: any) =>
+                            `"${f.question}","${f.answer.replace(/"/g, '""')}"`
+                        ).join("\n");
+                    break;
+                case 'stats':
+                    data = "Views,Clients\n" + `${content.stats.views},${content.stats.clients}`;
+                    break;
+                default:
+                    return NextResponse.json({ error: 'Invalid type for CSV' }, { status: 400 });
+            }
+        } else {
+            // JSON Format
+            switch (type) {
+                case 'testimonials': data = content.testimonials; break;
+                case 'faqs': data = content.faqs; break;
+                case 'stats': data = content.stats; break;
+                case 'categories': data = content.categories; break;
+                default: data = content; break;
+            }
+        }
+
+        return new NextResponse(format === 'csv' ? data : JSON.stringify(data), {
             headers: {
-                'Content-Type': 'text/csv',
-                'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=600'
+                'Content-Type': contentType,
+                'Cache-Control': 'no-store, max-age=0' // Always fresh for admin changes
             },
         });
     } catch (error) {
-        console.error(`Error proxying ${type}:`, error);
+        console.error(`Error fetching ${type}:`, error);
         return NextResponse.json({ error: 'Failed to fetch data' }, { status: 500 });
     }
 }
