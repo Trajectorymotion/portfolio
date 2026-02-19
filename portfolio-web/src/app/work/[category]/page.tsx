@@ -4,6 +4,8 @@ import { ShowcaseSection } from "@/components/ShowcaseSection";
 import { getPlaylistData } from "@/lib/youtube";
 import { getContent } from "@/lib/actions";
 
+export const dynamic = 'force-dynamic';
+
 export default async function CategoryPage({
     params,
 }: {

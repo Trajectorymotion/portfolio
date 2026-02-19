@@ -116,18 +116,18 @@ export function ContactCard() {
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        initial={{ opacity: 0, scale: 0.5 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{
-                            delay: 0.8 + (i * 0.1),
+                            delay: i * 0.1,
                             type: "spring",
-                            stiffness: 200,
-                            damping: 15
+                            stiffness: 260,
+                            damping: 20
                         }}
                         whileHover={{ y: -5, scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        className="w-12 h-12 rounded-full liquid-icon flex items-center justify-center text-foreground/70 hover:text-foreground shadow-lg"
+                        className="w-12 h-12 rounded-full liquid-icon flex items-center justify-center text-foreground hover:text-foreground shadow-lg border border-white/10"
                         title={social.label}
                     >
                         {social.icon}

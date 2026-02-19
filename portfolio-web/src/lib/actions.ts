@@ -20,17 +20,25 @@ export async function getContent() {
             supabase.from('portfolio_videos').select('*')
         ]);
 
-        // Reconstruct the nested structure the UI expects
-        const structuredCategories = (categories || []).map(cat => ({
-            ...cat,
-            videos: (videos || []).filter(v => v.category_id === cat.id)
-        }));
+        // Reconstruct the nested structure the UI expects with sorted results
+        const structuredCategories = (categories || [])
+            .sort((a, b) => a.title.localeCompare(b.title))
+            .map(cat => ({
+                ...cat,
+                videos: (videos || [])
+                    .filter(v => v.category_id === cat.id)
+                    .sort((a, b) => a.title.localeCompare(b.title))
+                    .map(v => ({
+                        ...v,
+                        videoUrl: v.url // Crucial mapping for frontend components
+                    }))
+            }));
 
         return {
             stats: stats || { views: "100M", clients: "50" },
             categories: structuredCategories,
-            testimonials: testimonials || [],
-            faqs: faqs || []
+            testimonials: (testimonials || []).sort((a, b) => a.name.localeCompare(b.name)),
+            faqs: (faqs || []).sort((a, b) => a.question.localeCompare(b.question))
         };
     } catch (error) {
         console.error("Error fetching content from Supabase:", error);
@@ -119,6 +127,8 @@ export async function updateContent(newData: any) {
         }
 
         revalidatePath('/');
+        revalidatePath('/work/[category]', 'page');
+        revalidatePath('/testimonials');
         revalidatePath('/admin');
         revalidatePath('/admin/dashboard');
 

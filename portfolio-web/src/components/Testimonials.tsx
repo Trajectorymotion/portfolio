@@ -67,51 +67,53 @@ export function Testimonials() {
     // Memoize row for performance
     const firstRow = useMemo(() => [...testimonials, ...testimonials], [testimonials]);
 
-    if (testimonials.length === 0) return null;
-
     return (
         <section className="pt-2 pb-8 overflow-hidden bg-background/50 relative">
-            <div className="max-w-7xl mx-auto px-6 sm:px-10 mb-4 relative z-10">
-                <div className="flex flex-col items-center text-center">
-                    <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">
-                        Client Voices
-                    </h2>
-                    <p className="text-gray-400 max-w-2xl text-lg leading-relaxed">
-                        What directors and brands say about working with me.
-                    </p>
-                </div>
-            </div>
-
-            {/* View All Button */}
-            <div className="flex justify-center mt-6 mb-10 relative z-10">
-                <Link href="/testimonials">
-                    <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="glass px-6 py-2.5 rounded-xl text-foreground font-semibold hover:bg-white/10 transition-all text-sm flex items-center gap-2 border border-white/25 group shadow-xl"
-                    >
-                        <span>View All Reviews</span>
-                        <div className="w-6 h-6 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-white/20 transition-colors">
-                            <ArrowUpLeft className="w-3 h-3 text-foreground transition-transform group-hover:-translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={3} />
+            {testimonials.length > 0 && (
+                <>
+                    <div className="max-w-7xl mx-auto px-6 sm:px-10 mb-4 relative z-10">
+                        <div className="flex flex-col items-center text-center">
+                            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">
+                                Client Voices
+                            </h2>
+                            <p className="text-gray-400 max-w-2xl text-lg leading-relaxed">
+                                What directors and brands say about working with me.
+                            </p>
                         </div>
-                    </motion.div>
-                </Link>
-            </div>
-
-            <div className="relative flex flex-col gap-10">
-                {/* Gradient Fades for Strips - Localized to rows */}
-                <div className="absolute inset-y-0 left-0 w-32 sm:w-64 bg-gradient-to-r from-background to-transparent z-20 pointer-events-none" />
-                <div className="absolute inset-y-0 right-0 w-32 sm:w-64 bg-gradient-to-l from-background to-transparent z-20 pointer-events-none" />
-
-                {/* Single Strip Marquee */}
-                <div className="flex overflow-hidden">
-                    <div className="flex gap-6 animate-marquee hover:[animation-play-state:paused] whitespace-nowrap">
-                        {firstRow.map((t, i) => (
-                            <TestimonialCard key={`row1-${i}`} testimonial={t} />
-                        ))}
                     </div>
-                </div>
-            </div>
+
+                    {/* View All Button */}
+                    <div className="flex justify-center mt-6 mb-10 relative z-10">
+                        <Link href="/testimonials">
+                            <motion.div
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="glass px-6 py-2.5 rounded-xl text-foreground font-semibold hover:bg-white/10 transition-all text-sm flex items-center gap-2 border border-white/25 group shadow-xl"
+                            >
+                                <span>View All Reviews</span>
+                                <div className="w-6 h-6 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-white/20 transition-colors">
+                                    <ArrowUpLeft className="w-3 h-3 text-foreground transition-transform group-hover:-translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={3} />
+                                </div>
+                            </motion.div>
+                        </Link>
+                    </div>
+
+                    <div className="relative flex flex-col gap-10">
+                        {/* Gradient Fades for Strips - Localized to rows */}
+                        <div className="absolute inset-y-0 left-0 w-32 sm:w-64 bg-gradient-to-r from-background to-transparent z-20 pointer-events-none" />
+                        <div className="absolute inset-y-0 right-0 w-32 sm:w-64 bg-gradient-to-l from-background to-transparent z-20 pointer-events-none" />
+
+                        {/* Single Strip Marquee */}
+                        <div className="flex overflow-hidden">
+                            <div className="flex gap-6 animate-marquee hover:[animation-play-state:paused] whitespace-nowrap">
+                                {firstRow.map((t, i) => (
+                                    <TestimonialCard key={`row1-${i}`} testimonial={t} />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
 
             <div className="flex flex-col relative z-30">
                 {/* FAQ */}
@@ -123,7 +125,7 @@ export function Testimonials() {
                 {/* Contact Card */}
                 <ContactCard />
             </div>
-        </section >
+        </section>
     );
 }
 
