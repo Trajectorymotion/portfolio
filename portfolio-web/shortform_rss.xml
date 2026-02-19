@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns:yt="http://www.youtube.com/xml/schemas/2015" xmlns:media="http://search.yahoo.com/mrss/" xmlns="http://www.w3.org/2005/Atom">
+ <link rel="self" href="http://www.youtube.com/feeds/videos.xml?playlist_id=PLwMaPG6M4YK09yXKMCMztMjBpnifSs33s"/>
+ <id>yt:playlist:PLwMaPG6M4YK09yXKMCMztMjBpnifSs33s</id>
+ <yt:playlistId>PLwMaPG6M4YK09yXKMCMztMjBpnifSs33s</yt:playlistId>
+ <yt:channelId>UCGdjQLpJgNCZGXD861-as9g</yt:channelId>
+ <title>Short Form Edits</title>
+ <author>
+  <name>Trajectory Motion</name>
+  <uri>https://www.youtube.com/channel/UCGdjQLpJgNCZGXD861-as9g</uri>
+ </author>
+ <published>2026-02-17T08:10:27+00:00</published>
+ <entry>
+  <id>yt:video:clWBv6XaSLI</id>
+  <yt:videoId>clWBv6XaSLI</yt:videoId>
+  <yt:channelId>UCGdjQLpJgNCZGXD861-as9g</yt:channelId>
+  <title>Stop Competing With 1000’s 😮‍💨</title>
+  <link rel="alternate" href="https://www.youtube.com/shorts/clWBv6XaSLI"/>
+  <author>
+   <name>Trajectory Motion</name>
+   <uri>https://www.youtube.com/channel/UCGdjQLpJgNCZGXD861-as9g</uri>
+  </author>
+  <published>2026-02-17T07:57:47+00:00</published>
+  <updated>2026-02-17T08:00:07+00:00</updated>
+  <media:group>
+   <media:title>Stop Competing With 1000’s 😮‍💨</media:title>
+   <media:content url="https://www.youtube.com/v/clWBv6XaSLI?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i4.ytimg.com/vi/clWBv6XaSLI/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Freelancers are tired of refreshing Upwork and Fiverr…
+Competing with thousands. Waiting. Hoping.
+Meanwhile, early users are unlocking pro-level exposure and getting direct client visibility before the crowd arrives.
+This isn’t just another freelancing platform.
+It’s a shift in lanes.
+If you're serious about getting clients instead of chasing them, this is your sign.
+Comment “RAVE” to get early access. 🚀
+
+
+
+Hastags
+
+#freelancerlife
+#freelancers
+#remotejobs
+#workfromanywhere
+#digitalfreelancer
+#clientacquisition
+#freelancebusiness
+#solopreneur
+#motiongraphics
+#reelmarketing
+#contentcreator
+#socialmediamarketing
+#brandstorytelling</media:description>
+   <media:community>
+    <media:starRating count="1" average="5.00" min="1" max="5"/>
+    <media:statistics views="32"/>
+   </media:community>
+  </media:group>
+ </entry>
+</feed>

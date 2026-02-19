@@ -1,0 +1,27 @@
+param (
+    [string]$Path
+)
+
+$content = Get-Content -Path $Path -Raw
+
+# Search for the video object pattern in ytInitialData
+# We'll use a simpler approach: extract everything between videoId and then clean it up
+# Pattern: "videoId":"[ID]","thumbnail":...,"title":{"runs":[{"text":"[TITLE]"}]}
+
+$results = @()
+$ids = [regex]::Matches($content, '\"videoId\":\"(?<id>[a-zA-Z0-9_-]{11})\"') | ForEach-Object { $_.Groups['id'].Value } | Select-Object -Unique
+
+foreach ($id in $ids) {
+    # Find the title near this ID
+    # Usually the title follows the ID in the JSON renderer
+    $pattern = [regex]::Escape('\"videoId\":\"' + $id + '\"') + '.*?\"title\":\{\"runs\":\[\{\"text\":\"(?<title>.*?)\"\}\]\}'
+    if ($content -match $pattern) {
+        $title = $Matches['title']
+        # Filter out UI strings
+        if ($title -notmatch 'Share|Play all|Add to queue|Settings|Feedback|Help|More|Like|Dislike') {
+            $results += "$title|$id"
+        }
+    }
+}
+
+$results | Select-Object -Unique
