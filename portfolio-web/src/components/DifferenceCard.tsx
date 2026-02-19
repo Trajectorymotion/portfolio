@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-export function DifferenceCard() {
+export function DifferenceCard({ logoUrl = "/logo.png" }: { logoUrl?: string }) {
     return (
         <div className="flex justify-center px-6 mt-24 mb-12">
             <motion.div
@@ -11,20 +11,19 @@ export function DifferenceCard() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="relative z-50 max-w-[550px] w-full rounded-[3.5rem] pt-4 px-10 pb-10 sm:pt-6 sm:px-12 sm:pb-12 flex flex-col items-center glass-premium shadow-[0_20px_60px_rgba(255,255,255,0.7)] dark:shadow-[0_30px_100px_rgba(0,0,0,0.8)] border-white/40 dark:border-white/10 transition-all duration-500 hover:scale-[1.01]"
+                className="relative z-50 max-w-[550px] w-full rounded-[3.5rem] pt-4 px-10 pb-10 sm:pt-6 sm:px-12 sm:pb-12 flex flex-col items-center glass-premium shadow-[0_20px_60px_rgba(0,0,0,0.05)] dark:shadow-[0_30px_100px_rgba(0,0,0,0.8)] border-white/40 dark:border-white/10 transition-all duration-500 hover:scale-[1.01]"
             >
                 {/* Visual Background Glow (Added for extra visibility) */}
-                <div className="absolute -inset-2 bg-gradient-to-br from-white/10 to-transparent blur-3xl rounded-[4rem] pointer-events-none -z-10 opacity-70" />
+                {/* Removed extra white glow */}
 
                 {/* Asset (Larger with bottom fade) */}
                 <div className="w-full flex justify-center mb-0 relative group/img -mt-10 sm:-mt-12">
                     <img
-                        src="/logo.png"
+                        src={logoUrl || "/logo.png"}
                         alt="Profile"
                         className="w-80 h-80 sm:w-[26rem] sm:h-[26rem] object-contain dark:drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-transform duration-700 hover:scale-105 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]"
                     />
-                    {/* Light Mode Bottom Blend - Soft White Blur */}
-                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white via-white/80 to-transparent dark:hidden pointer-events-none" />
+                    {/* Removed Light Mode Bottom Blend that was causing harsh white block */}
                 </div>
 
                 {/* Heading (Slightly adjusted for larger image) */}

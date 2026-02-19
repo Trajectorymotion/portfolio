@@ -5,6 +5,7 @@ import { getPlaylistData } from "@/lib/youtube";
 import { getContent } from "@/lib/actions";
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function CategoryPage({
     params,
@@ -14,7 +15,7 @@ export default async function CategoryPage({
     const { category: categoryId } = await params;
     const content = await getContent();
 
-    // Find category in content.json
+    // Find category from Supabase data
     const categoryData = content?.categories?.find((c: any) => c.id === categoryId);
 
     if (!categoryData) {

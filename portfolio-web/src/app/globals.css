@@ -133,8 +133,8 @@ body {
   }
 
   --animate-shimmer: shimmer 3s linear infinite;
-  --animate-marquee: marquee 60s linear infinite;
-  --animate-marquee-reverse: marquee-reverse 70s linear infinite;
+  --animate-marquee: marquee 25s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 30s linear infinite;
 }
 
 /* Theme-adaptive Glow Utilities */
@@ -149,8 +149,7 @@ body {
   box-shadow:
     inset 0 1px 1px var(--accent-glow),
     var(--glass-shadow);
-  overflow: hidden !important;
-  /* Fix corner glitches */
+  position: relative;
   position: relative;
   transition: background 0.5s cubic-bezier(0.23, 1, 0.32, 1),
     border-color 0.5s cubic-bezier(0.23, 1, 0.32, 1),
@@ -174,7 +173,6 @@ body {
   -webkit-backdrop-filter: blur(100px) saturate(300%) brightness(110%);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
-  overflow: hidden !important;
   transition: background 0.5s cubic-bezier(0.23, 1, 0.32, 1),
     border-color 0.5s cubic-bezier(0.23, 1, 0.32, 1),
     box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1);

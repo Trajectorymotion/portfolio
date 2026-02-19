@@ -86,7 +86,7 @@ export default function FAQAdmin() {
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="glass-premium p-8 rounded-[3rem] border border-white/10 sticky top-10"
+                        className="glass-premium p-8 rounded-[1.5rem] border border-white/10 sticky top-10"
                     >
                         <h2 className="text-lg font-bold mb-6 flex items-center gap-2">
                             <Plus size={20} /> New Question
@@ -139,7 +139,7 @@ export default function FAQAdmin() {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 0.95 }}
                                     onClick={() => setExpandedItem(isExpanded ? null : faq.id)}
-                                    className={`glass-premium p-6 sm:p-8 rounded-[2.5rem] border border-white/5 cursor-pointer transition-all duration-300 ${isExpanded ? 'bg-white/[0.03]' : 'hover:bg-white/[0.01]'}`}
+                                    className={`glass-premium p-6 sm:p-8 rounded-[1.25rem] border border-white/5 cursor-pointer transition-all duration-300 ${isExpanded ? 'bg-white/[0.03]' : 'hover:bg-white/[0.01]'}`}
                                 >
                                     <div className="flex items-center justify-between gap-4">
                                         <div className="flex items-center gap-4">
@@ -186,7 +186,7 @@ export default function FAQAdmin() {
                     </AnimatePresence>
 
                     {data.faqs.length === 0 && (
-                        <div className="py-20 text-center opacity-20 flex flex-col items-center gap-4 border border-dashed border-white/10 rounded-[3rem]">
+                        <div className="py-20 text-center opacity-20 flex flex-col items-center gap-4 border border-dashed border-white/10 rounded-[1.5rem]">
                             <MessageCircle size={60} />
                             <p className="text-xl font-bold uppercase tracking-[0.2em]">No questions listed</p>
                         </div>

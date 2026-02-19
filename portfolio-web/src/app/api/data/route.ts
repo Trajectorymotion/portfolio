@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getContent } from '@/lib/actions';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const type = searchParams.get('type');
@@ -47,11 +50,23 @@ export async function GET(request: Request) {
             }
         }
 
-        return new NextResponse(format === 'csv' ? data : JSON.stringify(data), {
-            headers: {
-                'Content-Type': contentType,
-                'Cache-Control': 'no-store, max-age=0' // Always fresh for admin changes
-            },
+        const headers = {
+            'Cache-Control': 'no-store, max-age=0, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+        };
+
+        if (format === 'csv') {
+            return new NextResponse(data, {
+                headers: {
+                    ...headers,
+                    'Content-Type': 'text/csv',
+                },
+            });
+        }
+
+        return NextResponse.json(data, {
+            headers: headers
         });
     } catch (error) {
         console.error(`Error fetching ${type}:`, error);

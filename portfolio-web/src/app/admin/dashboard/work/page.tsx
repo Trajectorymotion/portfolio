@@ -147,9 +147,9 @@ export default function WorkAdmin() {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.05 }}
-                            className="glass-premium p-8 rounded-[2.5rem] border border-white/5 flex flex-col group relative overflow-hidden"
+                            className="glass-premium p-6 rounded-[1.25rem] border border-white/5 flex flex-col group relative overflow-hidden"
                         >
-                            <div className="flex items-start justify-between mb-4 relative z-10">
+                            <div className="flex items-start justify-between mb-3 relative z-10">
                                 {(() => {
                                     const colors = [
                                         "bg-blue-500/10 text-blue-500",
@@ -161,8 +161,8 @@ export default function WorkAdmin() {
                                     ];
                                     const colorClass = colors[i % colors.length];
                                     return (
-                                        <div className={`w-12 h-12 rounded-2xl ${colorClass} flex items-center justify-center`}>
-                                            <Folder size={24} />
+                                        <div className={`w-10 h-10 rounded-xl ${colorClass} flex items-center justify-center`}>
+                                            <Folder size={20} />
                                         </div>
                                     );
                                 })()}
@@ -174,8 +174,8 @@ export default function WorkAdmin() {
                                 </button>
                             </div>
 
-                            <h3 className="text-xl font-bold mb-2 relative z-10">{cat.title}</h3>
-                            <p className="text-foreground/40 text-sm mb-6 flex-grow line-clamp-2 relative z-10">{cat.description}</p>
+                            <h3 className="text-lg font-bold mb-1 relative z-10">{cat.title}</h3>
+                            <p className="text-foreground/40 text-[13px] mb-4 line-clamp-2 relative z-10">{cat.description}</p>
 
                             <div className="flex items-center justify-between mt-auto relative z-10">
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-foreground/30">
@@ -194,7 +194,7 @@ export default function WorkAdmin() {
                     ))}
 
                     {/* ADD CATEGORY CARD */}
-                    <div className="glass-premium p-8 rounded-[2.5rem] border border-dashed border-white/10 flex flex-col gap-4">
+                    <div className="glass-premium p-8 rounded-[1.25rem] border border-dashed border-white/10 flex flex-col gap-4">
                         <h3 className="text-sm font-bold uppercase tracking-widest text-foreground/40 ml-1">Add New Category</h3>
                         <input
                             placeholder="Category Title"
@@ -227,7 +227,7 @@ export default function WorkAdmin() {
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: i * 0.05 }}
-                                className="glass-premium rounded-[2rem] overflow-hidden border border-white/5 group relative"
+                                className="glass-premium rounded-[1rem] overflow-hidden border border-white/5 group relative"
                             >
                                 <div className="aspect-video relative overflow-hidden bg-foreground/10">
                                     <img
@@ -263,7 +263,7 @@ export default function WorkAdmin() {
                         ))}
 
                         {/* ADD VIDEO CARD */}
-                        <div className="glass-premium p-6 rounded-[2rem] border border-dashed border-white/10 flex flex-col gap-3">
+                        <div className="glass-premium p-6 rounded-[1rem] border border-dashed border-white/10 flex flex-col gap-3">
                             <div className="flex items-center gap-2 mb-2">
                                 <Video size={16} className="text-foreground/40" />
                                 <h3 className="text-[10px] font-bold uppercase tracking-widest text-foreground/40">Add New Video</h3>

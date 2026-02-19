@@ -2,14 +2,24 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import { Star } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
+import { getContent } from "@/lib/actions"
 
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
+    const [settings, setSettings] = useState<any>(null)
     const pathname = usePathname()
+
+    useEffect(() => {
+        async function load() {
+            const content = await getContent()
+            if (content?.settings) setSettings(content.settings)
+        }
+        load()
+    }, [])
 
     const isAdmin = pathname?.startsWith('/admin')
 
@@ -46,11 +56,11 @@ export function Navbar() {
                 >
                     {/* Mobile Logo */}
                     <div className="flex items-center gap-2 pr-4 relative z-10">
-                        <div className="w-9 h-9 rounded-full liquid-icon flex items-center justify-center overflow-hidden border border-foreground/10">
-                            <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
+                        <div className="w-9 h-9 rounded-full liquid-icon flex items-center justify-center overflow-hidden border border-foreground/10 bg-white">
+                            <img src={settings?.logo_url || "/logo.png"} alt="Logo" className="w-full h-full object-cover" />
                         </div>
                         <span className="font-semibold text-sm text-foreground tracking-tight whitespace-nowrap">
-                            Trajectory motion
+                            {settings?.site_name || "Trajectory motion"}
                         </span>
                     </div>
 
@@ -74,12 +84,12 @@ export function Navbar() {
                 {/* DESKTOP: Floating Dock Layout */}
                 <div className="hidden sm:flex w-full items-center justify-between relative h-full">
                     {/* Logo Area */}
-                    <div className="pointer-events-auto flex items-center gap-2 glass px-5 py-3 rounded-2xl relative z-50">
-                        <div className="w-10 h-10 rounded-full liquid-icon flex items-center justify-center overflow-hidden">
-                            <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
+                    <div className="pointer-events-auto flex items-center gap-2 glass px-5 py-3 rounded-2xl relative z-50 transition-all duration-300">
+                        <div className="w-10 h-10 rounded-full liquid-icon flex items-center justify-center overflow-hidden bg-white">
+                            <img src={settings?.logo_url || "/logo.png"} alt="Logo" className="w-full h-full object-cover" />
                         </div>
                         <span className="font-medium text-foreground tracking-tight">
-                            Trajectory motion
+                            {settings?.site_name || "Trajectory motion"}
                         </span>
                     </div>
 

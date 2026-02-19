@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useMemo } from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpLeft } from "lucide-react";
@@ -15,7 +15,11 @@ interface Testimonial {
     category: string;
 }
 
-const TESTIMONIALS_CSV_URL = "/api/data?type=testimonials";
+interface TestimonialsProps {
+    testimonials: Testimonial[];
+    faqs: { question: string; answer: string }[];
+    settings?: any;
+}
 
 /**
  * Utility to convert Google Drive sharing links to direct image links
@@ -34,36 +38,7 @@ const getGoogleDriveDirectLink = (url: string) => {
     return url;
 };
 
-export function Testimonials() {
-    const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-
-    useEffect(() => {
-        const fetchTestimonials = async () => {
-            try {
-                const response = await fetch(TESTIMONIALS_CSV_URL);
-                const csv = await response.text();
-                const rows = csv.split("\n").slice(1); // Skip header
-
-                const data = rows.map(row => {
-                    const cols = row.match(/(".*?"|[^",\r\n]+)(?=\s*,|\s*$)/g);
-                    if (!cols || cols.length < 3) return null;
-                    return {
-                        name: cols[0].replace(/^"|"$/g, '').trim(),
-                        review: cols[1].replace(/^"|"$/g, '').trim(),
-                        image: cols[2].replace(/^"|"$/g, '').trim(),
-                        category: (cols[3] || "Modern Leader").replace(/^"|"$/g, '').trim()
-                    };
-                }).filter((t): t is Testimonial => t !== null && t.review !== "");
-
-                setTestimonials(data);
-            } catch (error) {
-                console.error("Error fetching testimonials:", error);
-            }
-        };
-
-        fetchTestimonials();
-    }, []);
-
+export function Testimonials({ testimonials, faqs, settings }: TestimonialsProps) {
     // Memoize row for performance
     const firstRow = useMemo(() => [...testimonials, ...testimonials], [testimonials]);
 
@@ -115,15 +90,15 @@ export function Testimonials() {
                 </>
             )}
 
-            <div className="flex flex-col relative z-30">
+            <div className="flex flex-col relative z-30 mt-20">
                 {/* FAQ */}
-                <FAQ />
+                <FAQ faqs={faqs} />
 
                 {/* Difference Card */}
-                <DifferenceCard />
+                <DifferenceCard logoUrl={settings?.logo_url || "/logo.png"} />
 
                 {/* Contact Card */}
-                <ContactCard />
+                <ContactCard socials={settings?.footer_socials} />
             </div>
         </section>
     );
@@ -141,7 +116,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
 
             <p className="text-foreground/90 text-sm sm:text-[17px] leading-relaxed font-medium italic whitespace-normal">
-                "{testimonial.review}"
+                &quot;{testimonial.review}&quot;
             </p>
 
             <div className="flex items-center gap-4 mt-auto">

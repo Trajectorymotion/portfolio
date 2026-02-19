@@ -1,9 +1,12 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
 import { motion, useInView, useSpring, useTransform } from "framer-motion";
+import { useEffect } from "react";
 
-const STATS_CSV_URL = "/api/data?type=stats";
+interface StatsCardProps {
+    stats: { views: string; clients: string };
+}
 
 function AnimatedNumber({ value, suffix = "", onComplete }: { value: string, suffix?: string, onComplete?: () => void }) {
     const ref = useRef(null);
@@ -44,35 +47,7 @@ function AnimatedNumber({ value, suffix = "", onComplete }: { value: string, suf
     );
 }
 
-export function StatsCard() {
-    const [stats, setStats] = useState<{ views: string; clients: string } | null>(null);
-
-
-    useEffect(() => {
-        const fetchStats = async () => {
-            try {
-                const response = await fetch(STATS_CSV_URL);
-                const csv = await response.text();
-                const rows = csv.split("\n").map(r => r.trim()).filter(Boolean);
-
-                if (rows.length > 1) {
-                    const dataRow = rows[1].split(",");
-                    setStats({
-                        views: (dataRow[0] || "0").trim(),
-                        clients: (dataRow[1] || "0").trim()
-                    });
-                }
-            } catch (error) {
-                console.error("Error fetching stats:", error);
-                setStats({ views: "100k", clients: "1" });
-            }
-        };
-
-        fetchStats();
-    }, []);
-
-    if (!stats) return null;
-
+export function StatsCard({ stats }: StatsCardProps) {
     return (
         <div className="flex justify-center w-full mb-6 px-4">
             <motion.div

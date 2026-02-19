@@ -28,7 +28,7 @@ export default function TestimonialsAdmin() {
     const [isSaving, setIsSaving] = useState(false);
 
     // Form State
-    const [form, setForm] = useState({ name: "", review: "", image: "" });
+    const [form, setForm] = useState({ name: "", review: "", image: "", position: "" });
 
     useEffect(() => {
         async function load() {
@@ -56,7 +56,8 @@ export default function TestimonialsAdmin() {
             id: Math.random().toString(36).substr(2, 9),
             name: form.name,
             review: form.review,
-            image: form.image
+            image: form.image,
+            position: form.position
         };
 
         const updated = {
@@ -64,7 +65,7 @@ export default function TestimonialsAdmin() {
             testimonials: [newTestimonial, ...data.testimonials]
         };
         handleSave(updated);
-        setForm({ name: "", review: "", image: "" });
+        setForm({ name: "", review: "", image: "", position: "" });
     };
 
     const deleteTestimonial = (id: string) => {
@@ -97,16 +98,16 @@ export default function TestimonialsAdmin() {
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="glass-premium p-8 rounded-[3rem] border border-white/10 sticky top-10"
+                        className="glass-premium p-6 rounded-[1.5rem] border border-white/10 sticky top-10"
                     >
-                        <h2 className="text-lg font-bold mb-6 flex items-center gap-2">
+                        <h2 className="text-base font-bold mb-4 flex items-center gap-2">
                             <Plus size={20} /> Add Review
                         </h2>
 
-                        <div className="flex flex-col gap-5">
+                        <div className="flex flex-col gap-4">
                             <div className="flex flex-col gap-2">
                                 <label className="text-[10px] font-bold uppercase tracking-widest text-foreground/40 ml-1">Client Image Preview</label>
-                                <div className="w-24 h-24 rounded-full bg-foreground/5 border border-white/5 flex items-center justify-center overflow-hidden self-center">
+                                <div className="w-16 h-16 rounded-full bg-foreground/5 border border-white/5 flex items-center justify-center overflow-hidden self-center">
                                     {form.image ? (
                                         <img
                                             src={getGoogleDriveDirectLink(form.image)}
@@ -126,7 +127,17 @@ export default function TestimonialsAdmin() {
                                     placeholder="e.g. Alex Rivera"
                                     value={form.name}
                                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                                    className="bg-foreground/[0.04] border border-foreground/10 rounded-2xl px-5 py-4 outline-none focus:ring-1 ring-foreground/20 text-sm"
+                                    className="bg-foreground/[0.04] border border-foreground/10 rounded-xl px-4 py-3 outline-none focus:ring-1 ring-foreground/20 text-sm"
+                                />
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                                <label className="text-[10px] font-bold uppercase tracking-widest text-foreground/40 ml-1">Profession / Position</label>
+                                <input
+                                    placeholder="e.g. CEO, Creative Director"
+                                    value={form.position}
+                                    onChange={(e) => setForm({ ...form, position: e.target.value })}
+                                    className="bg-foreground/[0.04] border border-foreground/10 rounded-xl px-4 py-3 outline-none focus:ring-1 ring-foreground/20 text-sm"
                                 />
                             </div>
 
@@ -136,8 +147,8 @@ export default function TestimonialsAdmin() {
                                     placeholder="Write the testimonial here..."
                                     value={form.review}
                                     onChange={(e) => setForm({ ...form, review: e.target.value })}
-                                    rows={4}
-                                    className="bg-foreground/[0.04] border border-foreground/10 rounded-2xl px-5 py-4 outline-none focus:ring-1 ring-foreground/20 text-sm resize-none"
+                                    rows={3}
+                                    className="bg-foreground/[0.04] border border-foreground/10 rounded-xl px-4 py-3 outline-none focus:ring-1 ring-foreground/20 text-sm resize-none"
                                 />
                             </div>
 
@@ -148,7 +159,7 @@ export default function TestimonialsAdmin() {
                                         placeholder="Paste link here..."
                                         value={form.image}
                                         onChange={(e) => setForm({ ...form, image: e.target.value })}
-                                        className="w-full bg-foreground/[0.04] border border-foreground/10 rounded-2xl px-5 py-4 pl-12 outline-none focus:ring-1 ring-foreground/20 text-xs font-mono"
+                                        className="w-full bg-foreground/[0.04] border border-foreground/10 rounded-xl px-4 py-3 pl-10 outline-none focus:ring-1 ring-foreground/20 text-xs font-mono"
                                     />
                                     <LinkIcon size={14} className="absolute left-5 top-1/2 -translate-y-1/2 text-foreground/30" />
                                 </div>
@@ -157,7 +168,7 @@ export default function TestimonialsAdmin() {
                             <button
                                 onClick={addTestimonial}
                                 disabled={isSaving || !form.name || !form.review}
-                                className="mt-4 w-full py-4 rounded-2xl bg-foreground text-background font-bold text-sm flex items-center justify-center gap-2 hover:scale-[1.02] transition-transform disabled:opacity-50"
+                                className="mt-2 w-full py-3 rounded-xl bg-foreground text-background font-bold text-sm flex items-center justify-center gap-2 hover:scale-[1.02] transition-transform disabled:opacity-50"
                             >
                                 <Save size={18} /> Publish Testimonial
                             </button>
@@ -176,34 +187,38 @@ export default function TestimonialsAdmin() {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.3 }}
-                                className="glass-premium p-8 rounded-[3rem] border border-white/5 relative group"
+                                className="glass-premium p-5 rounded-[1.25rem] border border-white/5 relative group"
                             >
-                                <div className="flex items-start gap-6">
-                                    <div className="w-16 h-16 rounded-full bg-foreground/5 border border-white/5 shrink-0 overflow-hidden">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-full bg-foreground/5 border border-white/5 shrink-0 overflow-hidden">
                                         {t.image ? (
                                             <img src={getGoogleDriveDirectLink(t.image)} alt={t.name} className="w-full h-full object-cover" />
                                         ) : (
-                                            <div className="w-full h-full flex items-center justify-center text-foreground/20 font-bold uppercase">{t.name.slice(0, 2)}</div>
+                                            <div className="w-full h-full flex items-center justify-center text-foreground/20 font-bold uppercase text-xs">{t.name.slice(0, 2)}</div>
                                         )}
                                     </div>
 
-                                    <div className="flex-grow">
-                                        <div className="flex items-center justify-between mb-2">
-                                            <h3 className="font-bold text-lg">{t.name}</h3>
-                                            <button
-                                                onClick={() => deleteTestimonial(t.id)}
-                                                className="p-2 text-red-500/80 hover:text-red-500 transition-colors"
-                                            >
-                                                <Trash2 size={18} />
-                                            </button>
+                                    <div className="flex-grow min-w-0">
+                                        <div className="flex flex-col mb-1">
+                                            <h3 className="font-bold text-sm sm:text-base leading-tight">{t.name}</h3>
+                                            {t.position && (
+                                                <span className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest mt-0.5">{t.position}</span>
+                                            )}
                                         </div>
                                         <div className="relative">
-                                            <Quote size={20} className="absolute -left-1 -top-2 text-foreground/5 -z-10" />
-                                            <p className="text-foreground/60 text-sm leading-relaxed italic pr-6 group-hover:text-foreground/90 transition-colors">
+                                            <Quote size={14} className="absolute -left-1 -top-2 text-foreground/5 -z-10" />
+                                            <p className="text-foreground/60 text-xs leading-relaxed italic pr-6 group-hover:text-foreground/90 transition-colors line-clamp-2">
                                                 "{t.review}"
                                             </p>
                                         </div>
                                     </div>
+
+                                    <button
+                                        onClick={() => deleteTestimonial(t.id)}
+                                        className="p-3 text-red-500/60 hover:text-red-500 hover:bg-red-500/5 rounded-xl transition-all shrink-0"
+                                    >
+                                        <Trash2 size={16} />
+                                    </button>
                                 </div>
                             </motion.div>
                         ))}

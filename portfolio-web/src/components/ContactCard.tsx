@@ -1,13 +1,38 @@
 "use client"
 
 import { motion } from "framer-motion";
-import { Instagram, Youtube, Mail } from "lucide-react";
+import {
+    Instagram,
+    Youtube,
+    Mail,
+    Twitter,
+    Github,
+    Linkedin,
+    ExternalLink,
+    ShoppingBag,
+    Briefcase,
+    Globe
+} from "lucide-react";
 
-export function ContactCard() {
-    const socials = [
-        { icon: <Instagram className="w-5 h-5" />, href: "https://www.instagram.com/trajectory.motion/", label: "Instagram" },
-        { icon: <Youtube className="w-5 h-5" />, href: "https://youtube.com/@TrajectoryMotion", label: "YouTube" },
-        { icon: <Mail className="w-5 h-5" />, href: "mailto:trajectorymotion.work@gmail.com", label: "Email" },
+const socialIcons: Record<string, any> = {
+    Instagram: <Instagram className="w-5 h-5" />,
+    Youtube: <Youtube className="w-5 h-5" />,
+    Mail: <Mail className="w-5 h-5" />,
+    Twitter: <Twitter className="w-5 h-5" />,
+    Github: <Github className="w-5 h-5" />,
+    Linkedin: <Linkedin className="w-5 h-5" />,
+    Store: <ShoppingBag className="w-5 h-5" />,
+    Fiverr: <Briefcase className="w-5 h-5 text-[#1dbf73]" />,
+    Upwork: <Briefcase className="w-5 h-5 text-[#14a800]" />,
+    Portfolio: <Globe className="w-5 h-5" />,
+    ExternalLink: <ExternalLink className="w-5 h-5" />,
+};
+
+export function ContactCard({ socials = [] }: { socials?: { icon: string; href: string }[] }) {
+    const displaySocials = socials.length > 0 ? socials : [
+        { icon: "Instagram", href: "https://www.instagram.com/trajectory.motion/" },
+        { icon: "Youtube", href: "https://youtube.com/@TrajectoryMotion" },
+        { icon: "Mail", href: "mailto:trajectorymotion.work@gmail.com" },
     ];
 
     return (
@@ -110,7 +135,7 @@ export function ContactCard() {
 
             {/* Quick Access Socials */}
             <div className="flex items-center gap-4">
-                {socials.map((social, i) => (
+                {displaySocials.map((social, i) => (
                     <motion.a
                         key={i}
                         href={social.href}
@@ -128,9 +153,13 @@ export function ContactCard() {
                         whileHover={{ y: -5, scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className="w-12 h-12 rounded-full liquid-icon flex items-center justify-center text-foreground hover:text-foreground shadow-lg border border-white/10"
-                        title={social.label}
+                        title={social.icon}
                     >
-                        {social.icon}
+                        {social.icon && (social.icon.startsWith('data:image') || social.icon.startsWith('http')) ? (
+                            <img src={social.icon} alt="" className="w-5 h-5 object-contain" />
+                        ) : (
+                            socialIcons[social.icon] || socialIcons.ExternalLink
+                        )}
                     </motion.a>
                 ))}
             </div>

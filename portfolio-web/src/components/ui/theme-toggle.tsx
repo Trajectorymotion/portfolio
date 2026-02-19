@@ -30,7 +30,7 @@ export function ThemeToggle() {
         <div className="relative">
             <motion.button
                 onClick={handleToggle}
-                className="relative w-10 h-10 rounded-full liquid-icon flex items-center justify-center overflow-hidden border-none"
+                className="relative w-9 h-9 rounded-full liquid-icon flex items-center justify-center overflow-hidden border-none"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label="Toggle theme"

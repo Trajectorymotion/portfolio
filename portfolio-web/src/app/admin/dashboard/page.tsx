@@ -75,9 +75,9 @@ export default function AdminDashboard() {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="glass-premium p-10 rounded-[3rem] border border-white/5 relative group"
+                    className="glass-premium p-6 sm:p-8 rounded-[1.5rem] border border-white/5 relative group"
                 >
-                    <div className="flex items-center gap-4 mb-8">
+                    <div className="flex items-center gap-4 mb-6">
                         <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500">
                             <TrendingUp size={24} />
                         </div>
@@ -89,7 +89,7 @@ export default function AdminDashboard() {
                             type="text"
                             value={stats.views}
                             onChange={(e) => setStats({ ...stats, views: e.target.value })}
-                            className="bg-foreground/[0.04] border border-foreground/10 rounded-2xl px-6 py-5 focus:ring-2 focus:ring-foreground/20 outline-none transition-all text-2xl font-bold text-foreground"
+                            className="bg-foreground/[0.04] border border-foreground/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-foreground/20 outline-none transition-all text-2xl font-bold text-foreground"
                         />
                     </div>
                 </motion.div>
@@ -99,9 +99,9 @@ export default function AdminDashboard() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="glass-premium p-10 rounded-[3rem] border border-white/5 relative group"
+                    className="glass-premium p-6 sm:p-8 rounded-[1.5rem] border border-white/5 relative group"
                 >
-                    <div className="flex items-center gap-4 mb-8">
+                    <div className="flex items-center gap-4 mb-6">
                         <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-500">
                             <Users size={24} />
                         </div>
@@ -113,14 +113,14 @@ export default function AdminDashboard() {
                             type="text"
                             value={stats.clients}
                             onChange={(e) => setStats({ ...stats, clients: e.target.value })}
-                            className="bg-foreground/[0.04] border border-foreground/10 rounded-2xl px-6 py-5 focus:ring-2 focus:ring-foreground/20 outline-none transition-all text-2xl font-bold text-foreground"
+                            className="bg-foreground/[0.04] border border-foreground/10 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-foreground/20 outline-none transition-all text-2xl font-bold text-foreground"
                         />
                     </div>
                 </motion.div>
             </div>
 
             {/* Quick Tips */}
-            <div className="glass-premium p-8 rounded-[2.5rem] border border-white/5 bg-white/[0.02]">
+            <div className="glass-premium p-6 sm:p-8 rounded-[1.25rem] border border-white/5 bg-white/[0.02]">
                 <h3 className="text-sm font-bold uppercase tracking-widest text-foreground/40 mb-4 ml-1">Dashboard Tip</h3>
                 <p className="text-foreground/70 text-sm leading-relaxed">
                     Updating these numbers will instantly change the values shown in the <span className="text-foreground font-bold">StatsCard</span> on your homepage.

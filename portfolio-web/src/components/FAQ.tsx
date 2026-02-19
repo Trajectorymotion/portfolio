@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Plus } from "lucide-react";
 
@@ -9,36 +9,13 @@ interface FAQItem {
     answer: string;
 }
 
-const FAQ_CSV_URL = "/api/data?type=faqs";
+interface FAQProps {
+    faqs: FAQItem[];
+}
 
-export function FAQ() {
-    const [faqs, setFaqs] = useState<FAQItem[]>([]);
+export function FAQ({ faqs }: FAQProps) {
     const [isMasterOpen, setIsMasterOpen] = useState(false);
     const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-    useEffect(() => {
-        const fetchFAQs = async () => {
-            try {
-                const response = await fetch(FAQ_CSV_URL);
-                const csv = await response.text();
-                const rows = csv.split("\n").slice(1);
-                const data = rows.map(row => {
-                    const cols = row.match(/(".*?"|[^",\r\n]+)(?=\s*,|\s*$)/g);
-                    if (!cols || cols.length < 2) return null;
-                    return {
-                        question: cols[0].replace(/^"|"$/g, '').trim(),
-                        answer: cols[1].replace(/^"|"$/g, '').trim()
-                    };
-                }).filter((item): item is FAQItem => item !== null && item.question !== "");
-
-                setFaqs(data);
-            } catch (error) {
-                console.error("Error fetching FAQs:", error);
-            }
-        };
-
-        fetchFAQs();
-    }, []);
 
     if (faqs.length === 0) return null;
 
