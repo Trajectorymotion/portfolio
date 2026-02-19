@@ -1,11 +1,31 @@
 "use client"
 
+
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { ArrowDown } from "lucide-react"
 import { Reveal } from "@/components/ui/reveal"
 import { TextReveal } from "@/components/ui/text-reveal"
 
 function Meteor({ index }: { index: number }) {
+    const [randomStyles, setRandomStyles] = useState({
+        width: "100px",
+        top: "0%",
+        left: "0%",
+        duration: 3,
+        delay: index * 6
+    })
+
+    useEffect(() => {
+        setRandomStyles({
+            width: `${100 + Math.random() * 100}px`,
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            duration: 3 + Math.random() * 2,
+            delay: index * 6 + Math.random() * 5
+        })
+    }, [index])
+
     return (
         <motion.div
             initial={{ x: "120%", y: "-120%", opacity: 0 }}
@@ -15,16 +35,16 @@ function Meteor({ index }: { index: number }) {
                 opacity: [0, 0.6, 0.6, 0]
             }}
             transition={{
-                duration: 3 + Math.random() * 2,
+                duration: randomStyles.duration,
                 repeat: Infinity,
-                delay: index * 6 + Math.random() * 5,
+                delay: randomStyles.delay,
                 ease: "linear"
             }}
             className="absolute h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent rotate-[-45deg]"
             style={{
-                width: `${100 + Math.random() * 100}px`,
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`
+                width: randomStyles.width,
+                top: randomStyles.top,
+                left: randomStyles.left
             }}
         />
     )

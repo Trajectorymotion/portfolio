@@ -6,7 +6,6 @@ import { getContent, updateContent } from "@/lib/actions";
 import {
     Plus,
     Trash2,
-    Image as ImageIcon,
     RefreshCw,
     Save,
     User,

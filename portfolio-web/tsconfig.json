@@ -38,6 +38,6 @@
   ],
   "exclude": [
     "node_modules",
-    "check_supabase.ts"
+    "scripts"
   ]
 }
