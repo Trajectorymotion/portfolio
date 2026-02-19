@@ -1,0 +1,74 @@
+{
+    "stats": {
+        "views": "100M",
+        "clients": "50"
+    },
+    "categories": [
+        {
+            "id": "long-form",
+            "title": "Long-Form Edits",
+            "description": "YouTube videos with clean cuts and viral flow.",
+            "videos": [
+                {
+                    "id": "lf1",
+                    "title": "Cinematic Documentary",
+                    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                    "thumbnail": "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg"
+                },
+                {
+                    "id": "lf2",
+                    "title": "Corporate Storytelling",
+                    "url": "https://www.youtube.com/watch?v=jNQXAC9IVRw",
+                    "thumbnail": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg"
+                }
+            ]
+        },
+        {
+            "id": "saas",
+            "title": "SaaS Explainer Edits",
+            "description": "Clear, concise edits that simplify your software story.",
+            "videos": [
+                {
+                    "id": "saas1",
+                    "title": "Product SaaS Walkthrough",
+                    "url": "https://www.youtube.com/watch?v=ScMzIvxBSi4",
+                    "thumbnail": "https://i.ytimg.com/vi/ScMzIvxBSi4/hqdefault.jpg"
+                },
+                {
+                    "id": "saas2",
+                    "title": "Feature Showcase",
+                    "url": "https://www.youtube.com/watch?v=0e3GPea1Tyg",
+                    "thumbnail": "https://i.ytimg.com/vi/0e3GPea1Tyg/hqdefault.jpg"
+                }
+            ]
+        },
+        {
+            "id": "short-form",
+            "title": "Short-Form Edits",
+            "description": "Snappy Reels and Shorts built to trend.",
+            "videos": [
+                {
+                    "id": "sf1",
+                    "title": "Stop Competing With 1000’s 😮‍💨",
+                    "url": "https://www.youtube.com/shorts/clWBv6XaSLI",
+                    "thumbnail": "https://i.ytimg.com/vi/clWBv6XaSLI/hqdefault.jpg"
+                }
+            ]
+        }
+    ],
+    "testimonials": [
+        {
+            "id": "t1",
+            "name": "John Doe",
+            "review": "Trajectory Motion transformed our brand's video presence. Highly recommended!",
+            "image": "/logo.png"
+        }
+    ],
+    "faqs": [
+        {
+            "id": "f1",
+            "question": "What is the turnaround time?",
+            "answer": "Typically 2-3 business days depending on the project complexity."
+        }
+    ]
+}

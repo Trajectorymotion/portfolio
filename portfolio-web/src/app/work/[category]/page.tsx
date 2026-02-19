@@ -1,26 +1,9 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { portfolioCategories, PortfolioItem } from "@/data/portfolio";
 import { ShowcaseSection } from "@/components/ShowcaseSection";
+import { getPlaylistData } from "@/lib/youtube";
 
-// Fetch dynamic playlist data
-async function fetchPlaylistData(playlistId: string): Promise<PortfolioItem[]> {
-    try {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-        const response = await fetch(`${baseUrl}/api/playlist?id=${playlistId}`, {
-            cache: 'no-store' // Always fetch fresh data
-        })
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch playlist')
-        }
-
-        const data = await response.json()
-        return data.success ? data.items : []
-    } catch (error) {
-        console.error('Error fetching playlist:', error)
-        return []
-    }
-}
+// Removed local fetchPlaylistData as we use the lib directly now
 
 export default async function CategoryPage({
     params,
@@ -51,13 +34,13 @@ export default async function CategoryPage({
         if (categoryId === 'saas') {
             // Parallel fetch for SaaS (Landscape + Portrait)
             const [primary, secondary] = await Promise.all([
-                fetchPlaylistData(primaryPlaylistId),
-                fetchPlaylistData(SAAS_916_PLAYLIST_ID)
+                getPlaylistData(primaryPlaylistId),
+                getPlaylistData(SAAS_916_PLAYLIST_ID)
             ]);
             if (primary.length > 0) items = primary;
             if (secondary.length > 0) secondaryItems = secondary;
         } else {
-            const dynamicItems = await fetchPlaylistData(primaryPlaylistId);
+            const dynamicItems = await getPlaylistData(primaryPlaylistId);
             if (dynamicItems.length > 0) items = dynamicItems;
         }
     }

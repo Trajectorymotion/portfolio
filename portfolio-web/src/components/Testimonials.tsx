@@ -45,14 +45,15 @@ export function Testimonials() {
                 const rows = csv.split("\n").slice(1); // Skip header
 
                 const data = rows.map(row => {
-                    const cols = row.split(",");
+                    const cols = row.match(/(".*?"|[^",\r\n]+)(?=\s*,|\s*$)/g);
+                    if (!cols || cols.length < 3) return null;
                     return {
-                        name: (cols[0] || "").trim(),
-                        review: (cols[1] || "").trim(),
-                        image: (cols[2] || "").trim(),
-                        category: (cols[3] || "Modern Leader").trim()
+                        name: cols[0].replace(/^"|"$/g, '').trim(),
+                        review: cols[1].replace(/^"|"$/g, '').trim(),
+                        image: cols[2].replace(/^"|"$/g, '').trim(),
+                        category: (cols[3] || "Modern Leader").replace(/^"|"$/g, '').trim()
                     };
-                }).filter(t => t.review.trim() !== "");
+                }).filter((t): t is Testimonial => t !== null && t.review !== "");
 
                 setTestimonials(data);
             } catch (error) {

@@ -21,8 +21,10 @@ export function DifferenceCard() {
                     <img
                         src="/logo.png"
                         alt="Profile"
-                        className="w-80 h-80 sm:w-[26rem] sm:h-[26rem] object-contain dark:drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-transform duration-700 hover:scale-105 [mask-image:linear-gradient(to_bottom,black_60%,transparent_95%)]"
+                        className="w-80 h-80 sm:w-[26rem] sm:h-[26rem] object-contain dark:drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-transform duration-700 hover:scale-105 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]"
                     />
+                    {/* Light Mode Bottom Blend - Soft White Blur */}
+                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white via-white/80 to-transparent dark:hidden pointer-events-none" />
                 </div>
 
                 {/* Heading (Slightly adjusted for larger image) */}
